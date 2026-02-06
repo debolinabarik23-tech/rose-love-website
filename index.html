@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌹 Rose Day Surprise 🌹</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
+overflow-x:hidden;
+color:white;
+text-align:center;
+}
+
+/* Floating Hearts */
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:20px;
+animation:float 8s linear infinite;
+opacity:0.7;
+}
+@keyframes float{
+0%{transform:translateY(0);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+
+/* Section Styling */
+section{
+min-height:100vh;
+display:none;
+padding:20px;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+transition:all 1s ease;
+}
+
+.active{
+display:flex;
+}
+
+/* Roses */
+.roses{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+margin-top:30px;
+}
+
+.rose{
+font-size:60px;
+cursor:pointer;
+animation:pulse 2s infinite;
+transition:transform 0.3s;
+}
+
+.rose:hover{
+transform:scale(1.3);
+}
+
+@keyframes pulse{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.15);}
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:25px;
+background:white;
+color:#ff4b91;
+font-weight:bold;
+margin-top:20px;
+cursor:pointer;
+box-shadow:0 0 15px white;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+/* Images */
+img{
+max-width:20%;
+border-radius:20px;
+margin:15px 0;
+box-shadow:0 0 20px white;
+}
+
+/* Quiz */
+.option{
+background:white;
+color:#ff4b91;
+padding:10px;
+margin:8px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.option:hover{
+background:#ffe6f0;
+}
+
+/* Wheel */
+#wheel{
+width:300px;
+height:300px;
+border-radius:50%;
+border:8px solid white;
+position:relative;
+transition:transform 5s ease-out;
+margin-top:20px;
+background:conic-gradient(
+#ff4b91 0deg 60deg,
+#ff8fab 60deg 120deg,
+#ffb3c6 120deg 180deg,
+#ffc2d1 180deg 240deg,
+#ff8fa3 240deg 300deg,
+#ff4d6d 300deg 360deg
+);
+}
+
+.pointer{
+width:0;
+height:0;
+border-left:20px solid transparent;
+border-right:20px solid transparent;
+border-bottom:30px solid white;
+margin-bottom:10px;
+}
+
+/* Final Fade */
+.fade{
+animation:fadeIn 2s forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* Responsive */
+@media(max-width:600px){
+.rose{font-size:45px;}
+#wheel{width:250px;height:250px;}
+}
+
+
+#final h2{
+font-size: 36px;
+font-family: 'Dancing Script', cursive;
+}
+
+#final p{
+font-size: 22px;
+}
+/* Memory Message Styling */
+
+#memoryTitle{
+font-size: 32px;
+font-family: 'Playfair Display', serif;
+margin-bottom: 10px;
+}
+
+#memoryMessage{
+font-family: 'Playfair Display', serif;
+font-size: 24px;
+margin-top: 15px;
+line-height: 1.6;
+letter-spacing: 1px;
+text-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+#lyrics{
+font-family: 'Dancing Script', cursive;
+font-size: 22px;
+margin-top: 15px;
+color: #fff0f5;
+text-shadow: 0 0 8px rgba(255,255,255,0.7);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Floating Hearts Script -->
+<script>
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"%";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(heart);
+}
+</script>
+
+<!-- Homepage -->
+<section id="home" class="active">
+<h1>🌹 Choose a Flower, Unlock a Feeling 🌹</h1>
+<div class="roses">
+<div class="rose" onclick="openRose(1)">🌹</div>
+<div class="rose" onclick="openRose(2)">🌷</div>
+<div class="rose" onclick="openRose(3)">🌺</div>
+<div class="rose" onclick="openRose(4)">🌸</div>
+<div class="rose" onclick="openRose(5)">🌻</div>
+</div>
+</section>
+
+<!-- Memory Section -->
+<section id="memory">
+<h2 id="memoryTitle"></h2>
+<img id="memoryPhoto" src="">
+<p id="memoryMessage"></p>
+<p id="lyrics"></p>
+<button onclick="goHome()">Back to Flowers</button>
+</section>
+
+<!-- Quiz Section -->
+<section id="quiz">
+<h2>💘 Love Quiz 💘</h2>
+<div id="questionBox"></div>
+</section>
+
+<!-- Wheel Section -->
+<section id="wheelSection">
+<h2>😈 Spin the Love Wheel 😈</h2>
+<div class="pointer"></div>
+<div id="wheel"></div>
+<button onclick="spinWheel()">Spin Now 💫</button>
+<p id="wheelResult"></p>
+</section>
+
+<!-- Final Section -->
+<section id="final">
+<img src="finalphoto.jpg">
+<div class="bigRose">🌹</div>
+<h2 class="fade">Happy Rose Day, My Love🌷💞</h2>
+<p>You are my forever, my always and my safest place❤️ 💕</p>
+<p>I love you so much💗 💞</p>
+</section>
+
+<script>
+let explored=0;
+let currentAudio;
+
+function openRose(num){
+document.getElementById("home").classList.remove("active");
+document.getElementById("memory").classList.add("active");
+
+document.getElementById("memoryPhoto").src="couple"+num+".jpg";
+
+let messages=[
+`You are not just someone I love.
+ You are the person my heart feels safest with. `,
+`I love the soft parts of you.
+ The quiet smiles, the small gestures,`,
+`Sometimes I look at you and think…
+ How did I get so lucky?`,
+`With you, even silence feels warm.
+ Even ordinary days feel magical.`,
+`No matter where life takes us,
+ I want my hand in yours.`
+];
+
+let lyricsArr=[
+`The one I want to tell everything to.
+ The one I want beside me in every chapter of my life.💓`,
+`the way you care without even trying.
+ You don’t even realize how special you are. 💗`,
+`Out of everyone in this world,
+ I found you. And that feels like destiny. ✨`,
+`Being next to you feels like peace.
+ You are the reason I smile.😇`,
+`Not just for today.
+ Not just for now.
+ But always. 💛`
+];
+
+document.getElementById("memoryTitle").innerHTML="Memory "+num+" 💖";
+document.getElementById("memoryMessage").innerHTML=messages[num-1];
+document.getElementById("lyrics").innerHTML=lyricsArr[num-1];
+
+if(currentAudio){
+currentAudio.pause();
+currentAudio.currentTime = 0;
+}
+
+currentAudio = new Audio("song"+num+".mp3");
+currentAudio.play();
+
+
+// Remove old quiz button if exists
+let oldBtn = document.getElementById("quizBtn");
+if(oldBtn){
+oldBtn.remove();
+}
+
+// Show quiz button only for 5th rose
+if(num === 5){
+let btn=document.createElement("button");
+btn.id="quizBtn";
+btn.innerText="Start Love Quiz 💕";
+btn.onclick=startQuiz;
+document.getElementById("memory").appendChild(btn);
+}
+
+}
+
+function goHome(){
+
+// Stop audio if playing
+if(currentAudio){
+currentAudio.pause();
+currentAudio.currentTime = 0;
+}
+
+document.getElementById("memory").classList.remove("active");
+document.getElementById("home").classList.add("active");
+}
+
+
+let quizData=[
+{q:"When did we first meet?",a:["Yesterday","That special day","In dreams","Never"],correct:1},
+{q:"My favorite thing about you?",a:["Smile","Anger","Sleep","Food"],correct:0},
+{q:"When I’m sad, what makes me feel better instantly?",a:["Your hugs 🤗","Chocolate 🍫","Sleep 😴","Scrolling reels 📱"],correct:0},
+{q:"Future plan?",a:["Together","Alone","Mars","Moon"],correct:0},
+{q:"How much do I love you?",a:["Little","Medium","Infinity","Zero"],correct:2}
+];
+
+let current=0;
+
+function startQuiz(){
+
+// 🔴 STOP the memory audio first
+if(currentAudio){
+currentAudio.pause();
+currentAudio.currentTime = 0;
+}
+
+current = 0; // also reset quiz
+
+document.getElementById("memory").classList.remove("active");
+document.getElementById("quiz").classList.add("active");
+showQuestion();
+}
+
+function showQuestion(){
+let box=document.getElementById("questionBox");
+box.innerHTML="<h3>"+quizData[current].q+"</h3>";
+quizData[current].a.forEach((opt,i)=>{
+let div=document.createElement("div");
+div.className="option";
+div.innerText=opt;
+div.onclick=()=>checkAnswer(i);
+box.appendChild(div);
+});
+}
+
+function checkAnswer(i){
+if(i==quizData[current].correct){
+alert("Correct 😍 You know us so well!");
+}else{
+alert("Wrong 😜 You owe me extra cuddles!");
+}
+current++;
+if(current<quizData.length){
+showQuestion();
+}else{
+document.getElementById("quiz").classList.remove("active");
+document.getElementById("wheelSection").classList.add("active");
+}
+}
+
+function spinWheel(){
+let wheel=document.getElementById("wheel");
+wheel.style.transform="rotate(3600deg)";
+setTimeout(()=>{
+document.getElementById("wheelResult").innerHTML="😏 You owe me 5 kisses!";
+let btn=document.createElement("button");
+btn.innerText="Unlock Final Rose 🌹";
+btn.onclick=showFinal;
+document.getElementById("wheelSection").appendChild(btn);
+},5000);
+}
+
+function showFinal(){
+document.getElementById("wheelSection").classList.remove("active");
+document.getElementById("final").classList.add("active");
+let audio=new Audio("finalsong.mp3");
+audio.play();
+}
+</script>
+
+</body>
+</html>
